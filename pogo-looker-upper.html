@@ -36,33 +36,34 @@
     <script>
      /*
         The pokemon types and their weaknesses
-     */
+      */
      const matrix  = {
-       "bug"      : ["fire","fighting","poison","flying","ghost","steel","fairy"],
-       "dark"     : ["fighting","dark","fairy"],
-       "dragon"   : ["steel"],
-       "electric" : ["electric","grass","dragon"],
-       "fairy"    : ["fire","poison","steel"],
-       "fighting" : ["poison","flying","psychic","bug","fairy"],
-       "fire"     : ["fire","water","rock","dragon"],
-       "flying"   : ["electric","rock","steel"],
-       "ghost"    : ["dark"],
-       "grass"    : ["fire","grass","poison","flying","bug","dragon","steel"],
-       "ground"   : ["grass","bug"],
-       "ice"      : ["fire","water","ice","steel"],
-       "normal"   : ["rock","steel"],
-       "poison"   : ["poison","ground","rock","ghost"],
-       "psychic"  : ["psychic","steel"],
-       "rock"     : ["fighting","ground","steel"],
-       "steel"    : ["fire","water","electric","steel"],
-       "water"    : ["water","grass","dragon"],
+       "normal"   : ["fighting"],
+       "fighting" : ["flying","psychic","fairy"],
+       "flying"   : ["rock","electric","ice"],
+       "poison"   : ["ground","psychic"],
+       "ground"   : ["water","grass","ice"],
+       "rock"     : ["fighting","ground","steel","water","grass"],
+       "bug"      : ["flying","rock","fire"],
+       "ghost"    : ["ghost","dark"],
+       "steel"    : ["fighting","ground","fire"],
+       "fire"     : ["ground","rock","water"],
+       "water"    : ["grass","electric"],
+       "grass"    : ["flying","poison","bug","fire","ice"],
+       "electric" : ["ground"],
+       "psychic"  : ["bug","ghost","dark"],
+       "ice"      : ["fighting","rock","steel","fire"],
+       "dragon"   : ["ice","dragon","fairy"],
+       "fairy"    : ["poison","steel"],
+       "dark"     : ["fighting","bug","fairy"],
+
      };
 
 
      /*
         Helper function.
         Capitalises the first letter of a string.
-     */
+      */
      function _uc (string) {
        return string.charAt(0).toUpperCase() + string.slice(1);
      }
@@ -92,10 +93,10 @@
      
      /*
         Updates HTML entities with data
-     */
+      */
      function updateFields (poketype) {
-       document.getElementById("selected").innerHTML="You selected type: " + poketype.toUpperCase() + ".";
-       document.getElementById("strength").innerHTML= _uc(poketype) + " is strong against  " + matrix[poketype];
+       document.getElementById("selected").innerHTML="Your opponent Pokemon is type: <b>" + poketype.toUpperCase() + "</b>.";
+       document.getElementById("strength").innerHTML= _uc(poketype) + " types are weak against  <b>" + matrix[poketype] + "</b>";
        document.getElementById("search").innerHTML=createSearchString(poketype);
      }
 
@@ -108,6 +109,7 @@
 <div id="selected">Output goes here</div>
 <div id="strength">Output goes here</div>
 <br>
+Your search string is:
 <div id="search">Output goes here</div>
 
 <p>
@@ -116,26 +118,24 @@
 <button type="button" onclick=updateFields("dragon")   >Dragon</button>
 <button type="button" onclick=updateFields("electric") >Electric</button>
 <button type="button" onclick=updateFields("fairy")    >Fairy</button>
+<button type="button" onclick=updateFields("fighting") >Fighting</button>
 </p>
 <p>
-<button type="button" onclick=updateFields("fighting") >Fighting</button>
 <button type="button" onclick=updateFields("fire")     >Fire</button>
 <button type="button" onclick=updateFields("flying")   >Flying</button>
 <button type="button" onclick=updateFields("ghost")    >Ghost</button>
 <button type="button" onclick=updateFields("grass")    >Grass</button>
-</p>
-<p>
 <button type="button" onclick=updateFields("ground")   >Ground</button>
 <button type="button" onclick=updateFields("ice")      >Ice</button>
+</p>
+<p>
 <button type="button" onclick=updateFields("normal")   >Normal</button>
 <button type="button" onclick=updateFields("poison")   >Poison</button>
 <button type="button" onclick=updateFields("psychic")  >Psychic</button>
-</p>
-<p>
 <button type="button" onclick=updateFields("rock")     >Rock</button>
 <button type="button" onclick=updateFields("steel")    >Steel</button>
 <button type="button" onclick=updateFields("water")    >Water</button>
-
+</p>
 
 </body>
 </html>
