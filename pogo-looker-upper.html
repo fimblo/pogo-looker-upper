@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Pokemon GO: Fighting strength looker-upper</title>
+    <!-- <script src="myscript.js"></script>  -->
+    <script>
+     const matrix  = {
+       "bug"     : ["grass","psychic","dark"],
+       "dark"    : ["psychic","ghost"],
+       "dragon"  : ["dragon"],
+       "electric": ["water","flying"],
+       "fairy"   : ["fighting","dragon","dark"],
+       "fighting": ["normal","ice","rock","dark","steel"],
+       "fire"    : ["grass","ice","bug","steel"],
+       "flying"  : ["grass","fighting","bug"],
+       "ghost"   : ["psychic","ghost"],
+       "grass"   : ["water","ground","rock"],
+       "ground"  : ["fire","electric","poison","rock","steel"],
+       "ice"     : ["grass","ground","flying","dragon"],
+       "normal"  : [],
+       "poison"  : ["grass","fairy"],
+       "psychic" : ["fighting","poison"],
+       "rock"    : ["fire","ice","flying","bug"],
+       "steel"   : ["ice","rock","fairy"],
+       "water"   : ["fire","ground","rock"],
+     };
+
+
+
+     function searchString (type) {
+       const pokearray = matrix[type];
+       var output = "";
+       var arr = [];
+
+       for (t in pokearray) {
+         arr.push("@" + 1 + pokearray[t]);
+       }
+       output = arr.join(',');
+
+       
+       arr = [];
+       for (t in pokearray) {
+         arr.push("@" + 2 + pokearray[t]);
+       }
+       output += "&" + arr.join(',');
+
+       return output;
+
+     }
+
+     function _uc (string) {
+       return string.charAt(0).toUpperCase() + string.slice(1);
+     }
+     
+     function c (poketype) {
+       document.getElementById("selected").innerHTML="You selected type: " + poketype.toUpperCase() + ".";
+       document.getElementById("strength").innerHTML= _uc(poketype) + " is strong against  " + matrix[poketype];
+       document.getElementById("search").innerHTML=searchString(poketype);
+     }
+
+
+    </script>
+</head>
+<body>
+
+
+<div id="selected">Output goes here</div>
+<div id="strength">Output goes here</div>
+<br>
+<div id="search">Output goes here</div>
+
+<p>
+<button type="button" onclick=c("bug")      >Bug</button>
+<button type="button" onclick=c("dark")     >Dark</button>
+<button type="button" onclick=c("dragon")   >Dragon</button>
+<button type="button" onclick=c("electric") >Electric</button>
+<button type="button" onclick=c("fairy")    >Fairy</button>
+</p>
+<p>
+<button type="button" onclick=c("fighting") >Fighting</button>
+<button type="button" onclick=c("fire")     >Fire</button>
+<button type="button" onclick=c("flying")   >Flying</button>
+<button type="button" onclick=c("ghost")    >Ghost</button>
+<button type="button" onclick=c("grass")    >Grass</button>
+</p>
+<p>
+<button type="button" onclick=c("ground")   >Ground</button>
+<button type="button" onclick=c("ice")      >Ice</button>
+<button type="button" onclick=c("normal")   >Normal</button>
+<button type="button" onclick=c("poison")   >Poison</button>
+<button type="button" onclick=c("psychic")  >Psychic</button>
+</p>
+<p>
+<button type="button" onclick=c("rock")     >Rock</button>
+<button type="button" onclick=c("steel")    >Steel</button>
+<button type="button" onclick=c("water")    >Water</button>
+
+
+</body>
+</html>
+
