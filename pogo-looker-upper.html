@@ -1,9 +1,44 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
-    <title>Pokemon GO: Fighting strength looker-upper</title>
-    <!-- <script src="myscript.js"></script>  -->
+    <title>Pokemon GO: Strength looker-upper</title>
+
     <script>
+
+     /* So... when playing Pokemon GO, there's this situation which
+        comes up every now and then - you're about to fight some
+        pokemon, and you see it's a WATER type. The app suggests a
+        team for you to enter the fray with, but often it's not a very
+        strong team because it doesn't take the defender's weaknesses
+        into consideration.
+
+        What I normally do then is to google the defender's type, get
+        to a web page with a zillion ads, scroll down lots and lots where I may or may not find a
+        table where I look up the type. If it was type WATER, I find
+        out that this pokemon is weak to Fire, Ground, and Rock
+        attacks.
+
+        Next, I re-open Pokemon GO, and search among my Pokemon for
+        any which has moves which belong to one of he three
+        attacks. PoGo has a weird search syntax, and I need to type
+        the following:
+
+        @1fire,@1ground,@1rock&@2fire,@2ground,@2rock
+
+        This is, needless to say, a major PITA. 
+
+        So I decided to write a little webpage which does the lookup
+        for me. Along the way I even learned some (very basic)
+        javascript. Yay for me!
+
+        fimblo
+      */
+
+
+
+     /*
+        The pokemon types and their weaknesses
+     */
      const matrix  = {
        "bug"     : ["grass","psychic","dark"],
        "dark"    : ["psychic","ghost"],
@@ -26,9 +61,20 @@
      };
 
 
+     /*
+        Helper function.
+        Capitalises the first letter of a string.
+     */
+     function _uc (string) {
+       return string.charAt(0).toUpperCase() + string.slice(1);
+     }
 
-     function searchString (type) {
-       const pokearray = matrix[type];
+     /*
+        Given a pokemon type, returns a string you can paste into
+        Pokemon GO's Pokemon search field.
+      */
+     function createSearchString (poketype) {
+       const pokearray = matrix[poketype];
        var output = "";
        var arr = [];
 
@@ -37,7 +83,6 @@
        }
        output = arr.join(',');
 
-       
        arr = [];
        for (t in pokearray) {
          arr.push("@" + 2 + pokearray[t]);
@@ -45,17 +90,15 @@
        output += "&" + arr.join(',');
 
        return output;
-
-     }
-
-     function _uc (string) {
-       return string.charAt(0).toUpperCase() + string.slice(1);
      }
      
-     function c (poketype) {
+     /*
+        Updates HTML entities with data
+     */
+     function updateFields (poketype) {
        document.getElementById("selected").innerHTML="You selected type: " + poketype.toUpperCase() + ".";
        document.getElementById("strength").innerHTML= _uc(poketype) + " is strong against  " + matrix[poketype];
-       document.getElementById("search").innerHTML=searchString(poketype);
+       document.getElementById("search").innerHTML=createSearchString(poketype);
      }
 
 
@@ -70,30 +113,30 @@
 <div id="search">Output goes here</div>
 
 <p>
-<button type="button" onclick=c("bug")      >Bug</button>
-<button type="button" onclick=c("dark")     >Dark</button>
-<button type="button" onclick=c("dragon")   >Dragon</button>
-<button type="button" onclick=c("electric") >Electric</button>
-<button type="button" onclick=c("fairy")    >Fairy</button>
+<button type="button" onclick=updateFields("bug")      >Bug</button>
+<button type="button" onclick=updateFields("dark")     >Dark</button>
+<button type="button" onclick=updateFields("dragon")   >Dragon</button>
+<button type="button" onclick=updateFields("electric") >Electric</button>
+<button type="button" onclick=updateFields("fairy")    >Fairy</button>
 </p>
 <p>
-<button type="button" onclick=c("fighting") >Fighting</button>
-<button type="button" onclick=c("fire")     >Fire</button>
-<button type="button" onclick=c("flying")   >Flying</button>
-<button type="button" onclick=c("ghost")    >Ghost</button>
-<button type="button" onclick=c("grass")    >Grass</button>
+<button type="button" onclick=updateFields("fighting") >Fighting</button>
+<button type="button" onclick=updateFields("fire")     >Fire</button>
+<button type="button" onclick=updateFields("flying")   >Flying</button>
+<button type="button" onclick=updateFields("ghost")    >Ghost</button>
+<button type="button" onclick=updateFields("grass")    >Grass</button>
 </p>
 <p>
-<button type="button" onclick=c("ground")   >Ground</button>
-<button type="button" onclick=c("ice")      >Ice</button>
-<button type="button" onclick=c("normal")   >Normal</button>
-<button type="button" onclick=c("poison")   >Poison</button>
-<button type="button" onclick=c("psychic")  >Psychic</button>
+<button type="button" onclick=updateFields("ground")   >Ground</button>
+<button type="button" onclick=updateFields("ice")      >Ice</button>
+<button type="button" onclick=updateFields("normal")   >Normal</button>
+<button type="button" onclick=updateFields("poison")   >Poison</button>
+<button type="button" onclick=updateFields("psychic")  >Psychic</button>
 </p>
 <p>
-<button type="button" onclick=c("rock")     >Rock</button>
-<button type="button" onclick=c("steel")    >Steel</button>
-<button type="button" onclick=c("water")    >Water</button>
+<button type="button" onclick=updateFields("rock")     >Rock</button>
+<button type="button" onclick=updateFields("steel")    >Steel</button>
+<button type="button" onclick=updateFields("water")    >Water</button>
 
 
 </body>
