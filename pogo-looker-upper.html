@@ -61,22 +61,44 @@
 
 
      /*
-        Given a pokemon type, returns a string you can paste into
-        Pokemon GO's Pokemon search field.
+        Given two types, returns pokemon type which will give 4x fighting
+        strength. returns undef if it doesnt exist.
       */
-     function createSearchString (poketype) {
-       const pokearray = matrix[poketype];
+     function getUltimateType (prim, seco) {
+       const primArr = matrix[prim];
+       const secoArr = matrix[seco];
+       var ultimateArr = [];
+
+       for (var p in primArr) {
+         for (var s in secoArr) {
+           if (primArr[p] === secoArr[s]) {
+             ultimateArr.push(primArr[p]);
+           }
+         }
+       }
+       return ultimateArr;
+     }
+
+     /*
+        Given an array of poketypes, returns a string you
+        can paste into Pokemon GO's Pokemon search field.
+      */
+     function createSearchString (pokeArray) {
        var output = "";
        var arr = [];
 
-       for (var t in pokearray) {
-         arr.push("@" + 1 + pokearray[t]);
+       if (pokeArray.length === 0) {
+         return "";
+       }
+       
+       for (var t in pokeArray) {
+         arr.push("@" + 1 + pokeArray[t]);
        }
        output = arr.join(',');
 
        arr = [];
-       for (var t in pokearray) {
-         arr.push("@" + 2 + pokearray[t]);
+       for (var t in pokeArray) {
+         arr.push("@" + 2 + pokeArray[t]);
        }
        output += "&" + arr.join(',');
 
@@ -91,15 +113,29 @@
        var prim = document.getElementById("primaryType").innerHTML;
        var seco = document.getElementById("secondaryType").innerHTML;
 
-       document.getElementById("foo").innerHTML = prim + seco;
+       
        
        if ("-" !== prim) {
          document.getElementById("primaryWeakness").innerHTML = matrix[prim];
-         document.getElementById("primarySearch").innerHTML = createSearchString(prim);
+         document.getElementById("primarySearch").innerHTML = createSearchString(matrix[prim]);
+       } else {
+         document.getElementById("primaryWeakness").innerHTML = "-";
+         document.getElementById("primarySearch").innerHTML = "-";
        }
        if ("-" !== seco) {
          document.getElementById("secondaryWeakness").innerHTML = matrix[seco];
-         document.getElementById("secondarySearch").innerHTML = createSearchString(seco);
+         document.getElementById("secondarySearch").innerHTML = createSearchString(matrix[seco]);
+       } else {
+         document.getElementById("secondaryWeakness").innerHTML = "-";
+         document.getElementById("secondarySearch").innerHTML = "-";
+       }
+       if ("-" !== prim && "-" !== seco) {
+         var types = getUltimateType(prim, seco);
+         document.getElementById("ultimateType").innerHTML = types;
+         document.getElementById("ultimateSearch").innerHTML = createSearchString(types);
+       } else {
+         document.getElementById("ultimateType").innerHTML = "-";
+         document.getElementById("ultimateSearch").innerHTML = "-";
        }
      }
 
@@ -118,12 +154,24 @@
        refresh();
      }
 
+     /* 
+        Resets everything to initial state
+      */
+     function reset () {
+       document.getElementById("primaryType").innerHTML = "-";
+       document.getElementById("secondaryType").innerHTML = "-";
+       refresh();
+     }
 
     </script>
   </head>
   <body>
     <div id="foo"></div>
+    <p>
+      <button type="button" onclick="reset()">Reset!</button>
+    </p>
 
+    
     Your opponent Pokemon is type: <b id="primaryType">-</b>.<br/>
     It is weak against: <b id="primaryWeakness">-</b>.<br/>
 
@@ -133,56 +181,56 @@
     </p>
 
     <p>
-      <button onclick=updatePrimary("bug")      >Bug</button>
-      <button onclick=updatePrimary("dark")     >Dark</button>
-      <button onclick=updatePrimary("dragon")   >Dragon</button>
-      <button onclick=updatePrimary("electric") >Electric</button>
-      <button onclick=updatePrimary("fairy")    >Fairy</button>
-      <button onclick=updatePrimary("fighting") >Fighting</button>
+      <button type="button" onclick=updatePrimary("bug")      >Bug</button>
+      <button type="button" onclick=updatePrimary("dark")     >Dark</button>
+      <button type="button" onclick=updatePrimary("dragon")   >Dragon</button>
+      <button type="button" onclick=updatePrimary("electric") >Electric</button>
+      <button type="button" onclick=updatePrimary("fairy")    >Fairy</button>
+      <button type="button" onclick=updatePrimary("fighting") >Fighting</button>
     </p>
     <p>
-      <button onclick=updatePrimary("fire")     >Fire</button>
-      <button onclick=updatePrimary("flying")   >Flying</button>
-      <button onclick=updatePrimary("ghost")    >Ghost</button>
-      <button onclick=updatePrimary("grass")    >Grass</button>
-      <button onclick=updatePrimary("ground")   >Ground</button>
-      <button onclick=updatePrimary("ice")      >Ice</button>
+      <button type="button" onclick=updatePrimary("fire")     >Fire</button>
+      <button type="button" onclick=updatePrimary("flying")   >Flying</button>
+      <button type="button" onclick=updatePrimary("ghost")    >Ghost</button>
+      <button type="button" onclick=updatePrimary("grass")    >Grass</button>
+      <button type="button" onclick=updatePrimary("ground")   >Ground</button>
+      <button type="button" onclick=updatePrimary("ice")      >Ice</button>
     </p>
     <p>
-      <button onclick=updatePrimary("normal")   >Normal</button>
-      <button onclick=updatePrimary("poison")   >Poison</button>
-      <button onclick=updatePrimary("psychic")  >Psychic</button>
-      <button onclick=updatePrimary("rock")     >Rock</button>
-      <button onclick=updatePrimary("steel")    >Steel</button>
-      <button onclick=updatePrimary("water")    >Water</button>
+      <button type="button" onclick=updatePrimary("normal")   >Normal</button>
+      <button type="button" onclick=updatePrimary("poison")   >Poison</button>
+      <button type="button" onclick=updatePrimary("psychic")  >Psychic</button>
+      <button type="button" onclick=updatePrimary("rock")     >Rock</button>
+      <button type="button" onclick=updatePrimary("steel")    >Steel</button>
+      <button type="button" onclick=updatePrimary("water")    >Water</button>
     </p>
 
     <hr/>
     Does your opponent have a second type? Select secondary type here:<br/>
 
     <p>
-      <button onclick=updateSecondary("bug")      >Bug</button>
-      <button onclick=updateSecondary("dark")     >Dark</button>
-      <button onclick=updateSecondary("dragon")   >Dragon</button>
-      <button onclick=updateSecondary("electric") >Electric</button>
-      <button onclick=updateSecondary("fairy")    >Fairy</button>
-      <button onclick=updateSecondary("fighting") >Fighting</button>
+      <button type="button" onclick=updateSecondary("bug")      >Bug</button>
+      <button type="button" onclick=updateSecondary("dark")     >Dark</button>
+      <button type="button" onclick=updateSecondary("dragon")   >Dragon</button>
+      <button type="button" onclick=updateSecondary("electric") >Electric</button>
+      <button type="button" onclick=updateSecondary("fairy")    >Fairy</button>
+      <button type="button" onclick=updateSecondary("fighting") >Fighting</button>
     </p>
     <p>
-      <button onclick=updateSecondary("fire")     >Fire</button>
-      <button onclick=updateSecondary("flying")   >Flying</button>
-      <button onclick=updateSecondary("ghost")    >Ghost</button>
-      <button onclick=updateSecondary("grass")    >Grass</button>
-      <button onclick=updateSecondary("ground")   >Ground</button>
-      <button onclick=updateSecondary("ice")      >Ice</button>
+      <button type="button" onclick=updateSecondary("fire")     >Fire</button>
+      <button type="button" onclick=updateSecondary("flying")   >Flying</button>
+      <button type="button" onclick=updateSecondary("ghost")    >Ghost</button>
+      <button type="button" onclick=updateSecondary("grass")    >Grass</button>
+      <button type="button" onclick=updateSecondary("ground")   >Ground</button>
+      <button type="button" onclick=updateSecondary("ice")      >Ice</button>
     </p>
     <p>
-      <button onclick=updateSecondary("normal")   >Normal</button>
-      <button onclick=updateSecondary("poison")   >Poison</button>
-      <button onclick=updateSecondary("psychic")  >Psychic</button>
-      <button onclick=updateSecondary("rock")     >Rock</button>
-      <button onclick=updateSecondary("steel")    >Steel</button>
-      <button onclick=updateSecondary("water")    >Water</button>
+      <button type="button" onclick=updateSecondary("normal")   >Normal</button>
+      <button type="button" onclick=updateSecondary("poison")   >Poison</button>
+      <button type="button" onclick=updateSecondary("psychic")  >Psychic</button>
+      <button type="button" onclick=updateSecondary("rock")     >Rock</button>
+      <button type="button" onclick=updateSecondary("steel")    >Steel</button>
+      <button type="button" onclick=updateSecondary("water")    >Water</button>
 </p>
 
 <p>
