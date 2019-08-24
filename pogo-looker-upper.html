@@ -69,13 +69,13 @@
        var output = "";
        var arr = [];
 
-       for (t in pokearray) {
+       for (var t in pokearray) {
          arr.push("@" + 1 + pokearray[t]);
        }
        output = arr.join(',');
 
        arr = [];
-       for (t in pokearray) {
+       for (var t in pokearray) {
          arr.push("@" + 2 + pokearray[t]);
        }
        output += "&" + arr.join(',');
@@ -83,52 +83,123 @@
        return output;
      }
 
+     
      /*
-        Updates HTML entities with data
+        Updates HTML entities for secondary poketype with data
       */
-     function updateFields (poketype) {
-       document.getElementById("primaryType").innerHTML = poketype.toUpperCase();
-       document.getElementById("weakness").innerHTML = matrix[poketype];
-       document.getElementById("search").innerHTML = createSearchString(poketype);
+     function refresh () {
+       var prim = document.getElementById("primaryType").innerHTML;
+       var seco = document.getElementById("secondaryType").innerHTML;
+
+       document.getElementById("foo").innerHTML = prim + seco;
+       
+       if ("-" !== prim) {
+         document.getElementById("primaryWeakness").innerHTML = matrix[prim];
+         document.getElementById("primarySearch").innerHTML = createSearchString(prim);
+       }
+       if ("-" !== seco) {
+         document.getElementById("secondaryWeakness").innerHTML = matrix[seco];
+         document.getElementById("secondarySearch").innerHTML = createSearchString(seco);
+       }
+     }
+
+     /*
+        Save primary type
+      */
+     function updatePrimary (poketype) {
+       document.getElementById("primaryType").innerHTML = poketype;
+       refresh();
+     }
+     /*
+        Save secondary type
+      */
+     function updateSecondary (poketype) {
+       document.getElementById("secondaryType").innerHTML = poketype;
+       refresh();
      }
 
 
     </script>
-</head>
-<body>
+  </head>
+  <body>
+    <div id="foo"></div>
 
+    Your opponent Pokemon is type: <b id="primaryType">-</b>.<br/>
+    It is weak against: <b id="primaryWeakness">-</b>.<br/>
 
-  Your opponent Pokemon is type: <b id="primaryType">not selected</b>.<br/>
-  It is weak against: <b id="weakness">not selected</b>.<br/>
+    <p>
+      Your search string is:
+      <div id="primarySearch"></div>
+    </p>
 
-  <p>
-    Your search string is:
-    <div id="search"></div>
-  </p>
+    <p>
+      <button onclick=updatePrimary("bug")      >Bug</button>
+      <button onclick=updatePrimary("dark")     >Dark</button>
+      <button onclick=updatePrimary("dragon")   >Dragon</button>
+      <button onclick=updatePrimary("electric") >Electric</button>
+      <button onclick=updatePrimary("fairy")    >Fairy</button>
+      <button onclick=updatePrimary("fighting") >Fighting</button>
+    </p>
+    <p>
+      <button onclick=updatePrimary("fire")     >Fire</button>
+      <button onclick=updatePrimary("flying")   >Flying</button>
+      <button onclick=updatePrimary("ghost")    >Ghost</button>
+      <button onclick=updatePrimary("grass")    >Grass</button>
+      <button onclick=updatePrimary("ground")   >Ground</button>
+      <button onclick=updatePrimary("ice")      >Ice</button>
+    </p>
+    <p>
+      <button onclick=updatePrimary("normal")   >Normal</button>
+      <button onclick=updatePrimary("poison")   >Poison</button>
+      <button onclick=updatePrimary("psychic")  >Psychic</button>
+      <button onclick=updatePrimary("rock")     >Rock</button>
+      <button onclick=updatePrimary("steel")    >Steel</button>
+      <button onclick=updatePrimary("water")    >Water</button>
+    </p>
 
-<p>
-<button onclick=updateFields("bug")      >Bug</button>
-<button onclick=updateFields("dark")     >Dark</button>
-<button onclick=updateFields("dragon")   >Dragon</button>
-<button onclick=updateFields("electric") >Electric</button>
-<button onclick=updateFields("fairy")    >Fairy</button>
-<button onclick=updateFields("fighting") >Fighting</button>
+    <hr/>
+    Does your opponent have a second type? Select secondary type here:<br/>
+
+    <p>
+      <button onclick=updateSecondary("bug")      >Bug</button>
+      <button onclick=updateSecondary("dark")     >Dark</button>
+      <button onclick=updateSecondary("dragon")   >Dragon</button>
+      <button onclick=updateSecondary("electric") >Electric</button>
+      <button onclick=updateSecondary("fairy")    >Fairy</button>
+      <button onclick=updateSecondary("fighting") >Fighting</button>
+    </p>
+    <p>
+      <button onclick=updateSecondary("fire")     >Fire</button>
+      <button onclick=updateSecondary("flying")   >Flying</button>
+      <button onclick=updateSecondary("ghost")    >Ghost</button>
+      <button onclick=updateSecondary("grass")    >Grass</button>
+      <button onclick=updateSecondary("ground")   >Ground</button>
+      <button onclick=updateSecondary("ice")      >Ice</button>
+    </p>
+    <p>
+      <button onclick=updateSecondary("normal")   >Normal</button>
+      <button onclick=updateSecondary("poison")   >Poison</button>
+      <button onclick=updateSecondary("psychic")  >Psychic</button>
+      <button onclick=updateSecondary("rock")     >Rock</button>
+      <button onclick=updateSecondary("steel")    >Steel</button>
+      <button onclick=updateSecondary("water")    >Water</button>
 </p>
+
 <p>
-<button onclick=updateFields("fire")     >Fire</button>
-<button onclick=updateFields("flying")   >Flying</button>
-<button onclick=updateFields("ghost")    >Ghost</button>
-<button onclick=updateFields("grass")    >Grass</button>
-<button onclick=updateFields("ground")   >Ground</button>
-<button onclick=updateFields("ice")      >Ice</button>
+  Selected secondary type: <b id='secondaryType'>-</b>.<br/>
+  It is weak against: <b id='secondaryWeakness'>-</b>.<br/>
 </p>
+
 <p>
-<button onclick=updateFields("normal")   >Normal</button>
-<button onclick=updateFields("poison")   >Poison</button>
-<button onclick=updateFields("psychic")  >Psychic</button>
-<button onclick=updateFields("rock")     >Rock</button>
-<button onclick=updateFields("steel")    >Steel</button>
-<button onclick=updateFields("water")    >Water</button>
+  Your new search string is:
+  <div id="secondarySearch"></div>
+</p>
+
+<hr/>
+The ultimate pokemon attack(s) against these two poketypes are: <span id="ultimateType">-</span>.<br/>
+<p>
+  Your ultimate search string is:
+  <div id="ultimateSearch"></div>
 </p>
 
 </body>
