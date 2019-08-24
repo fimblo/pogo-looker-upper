@@ -21,7 +21,7 @@
 
        @1fire,@1ground,@1rock&@2fire,@2ground,@2rock
 
-       This is, needless to say, a major PITA. 
+       This is, needless to say, a major PITA.
 
        So I decided to write a little webpage which does the lookup
        for me. Along the way I even learned some (very basic)
@@ -90,14 +90,14 @@
 
        return output;
      }
-     
+
      /*
         Updates HTML entities with data
       */
      function updateFields (poketype) {
-       document.getElementById("selected").innerHTML="Your opponent Pokemon is type: <b>" + poketype.toUpperCase() + "</b>.";
-       document.getElementById("strength").innerHTML= _uc(poketype) + " types are weak against  <b>" + matrix[poketype] + "</b>";
-       document.getElementById("search").innerHTML=createSearchString(poketype);
+       document.getElementById("primaryType").innerHTML = poketype.toUpperCase();
+       document.getElementById("weakness").innerHTML = matrix[poketype];
+       document.getElementById("search").innerHTML = createSearchString(poketype);
      }
 
 
@@ -106,37 +106,38 @@
 <body>
 
 
-<div id="selected">Output goes here</div>
-<div id="strength">Output goes here</div>
-<br>
-Your search string is:
-<div id="search">Output goes here</div>
+  Your opponent Pokemon is type: <b id="primaryType">not selected</b>.<br/>
+  It is weak against: <b id="weakness">not selected</b>.<br/>
+
+  <p>
+    Your search string is:
+    <div id="search"></div>
+  </p>
 
 <p>
-<button type="button" onclick=updateFields("bug")      >Bug</button>
-<button type="button" onclick=updateFields("dark")     >Dark</button>
-<button type="button" onclick=updateFields("dragon")   >Dragon</button>
-<button type="button" onclick=updateFields("electric") >Electric</button>
-<button type="button" onclick=updateFields("fairy")    >Fairy</button>
-<button type="button" onclick=updateFields("fighting") >Fighting</button>
+<button onclick=updateFields("bug")      >Bug</button>
+<button onclick=updateFields("dark")     >Dark</button>
+<button onclick=updateFields("dragon")   >Dragon</button>
+<button onclick=updateFields("electric") >Electric</button>
+<button onclick=updateFields("fairy")    >Fairy</button>
+<button onclick=updateFields("fighting") >Fighting</button>
 </p>
 <p>
-<button type="button" onclick=updateFields("fire")     >Fire</button>
-<button type="button" onclick=updateFields("flying")   >Flying</button>
-<button type="button" onclick=updateFields("ghost")    >Ghost</button>
-<button type="button" onclick=updateFields("grass")    >Grass</button>
-<button type="button" onclick=updateFields("ground")   >Ground</button>
-<button type="button" onclick=updateFields("ice")      >Ice</button>
+<button onclick=updateFields("fire")     >Fire</button>
+<button onclick=updateFields("flying")   >Flying</button>
+<button onclick=updateFields("ghost")    >Ghost</button>
+<button onclick=updateFields("grass")    >Grass</button>
+<button onclick=updateFields("ground")   >Ground</button>
+<button onclick=updateFields("ice")      >Ice</button>
 </p>
 <p>
-<button type="button" onclick=updateFields("normal")   >Normal</button>
-<button type="button" onclick=updateFields("poison")   >Poison</button>
-<button type="button" onclick=updateFields("psychic")  >Psychic</button>
-<button type="button" onclick=updateFields("rock")     >Rock</button>
-<button type="button" onclick=updateFields("steel")    >Steel</button>
-<button type="button" onclick=updateFields("water")    >Water</button>
+<button onclick=updateFields("normal")   >Normal</button>
+<button onclick=updateFields("poison")   >Poison</button>
+<button onclick=updateFields("psychic")  >Psychic</button>
+<button onclick=updateFields("rock")     >Rock</button>
+<button onclick=updateFields("steel")    >Steel</button>
+<button onclick=updateFields("water")    >Water</button>
 </p>
 
 </body>
 </html>
-
