@@ -1,35 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-  <!--
-       So... when playing Pokemon GO, there's this situation which
-       comes up every now and then - you're about to fight some
-       pokemon, and you see it's a WATER type. The app suggests a
-       team for you to enter the fray with, but often it's not a very
-       strong team because it doesn't take the defender's weaknesses
-       into consideration.
-
-       What I normally do then is to google the defender's type, get
-       to a web page with a zillion ads, scroll down lots and lots where I may or may not find a
-       table where I look up the type. If it was type WATER, I find
-       out that this pokemon is weak to Fire, Ground, and Rock
-       attacks.
-
-       Next, I re-open Pokemon GO, and search among my Pokemon for
-       any which has moves which belong to one of he three
-       attacks. PoGo has a weird search syntax, and I need to type
-       the following:
-
-       @1fire,@1ground,@1rock&@2fire,@2ground,@2rock
-
-       This is, needless to say, a major PITA.
-
-       So I decided to write a little webpage which does the lookup
-       for me. Along the way I even learned some (very basic)
-       javascript. Yay for me!
-
-       fimblo
-  -->
-
   <head>
     <title>Pokemon GO: Strength looker-upper</title>
 
@@ -58,7 +28,7 @@
        "dark"     : ["fighting","bug","fairy"],
 
      };
-     
+
      /*
         Helper function.
         Capitalises the first letter of a string.
@@ -74,16 +44,16 @@
      function getUltimateType (prim, seco) {
        const primArr = matrix[prim];
        const secoArr = matrix[seco];
-       var ultimateArr = [];
 
-       for (var p in primArr) {
-         for (var s in secoArr) {
-           if (primArr[p] === secoArr[s]) {
-             ultimateArr.push(primArr[p]);
-           }
-         }
-       }
-       return ultimateArr;
+       // filter() passes each element of primArr to a lambda.
+       // If function returns false, said element is filtered away
+       return  primArr.filter(
+         // The fat arrow's the lambda, which takes one param known here as 'value'.
+         value =>
+
+           // includes() returns true if value exists
+           // in the array.
+           secoArr.includes(value));
      }
 
      /*
@@ -178,10 +148,11 @@
     </script>
   </head>
   <body>
+    <center><h1>Pokemon GO:<br/>Looker upper</h1></center>
     <div id="foo"></div>
 
     <table border="1" width="100%">
-      
+
       <tr>
         <td width="50%" bgcolor="#88cc88">
           <h2>Primary type:</h2>
@@ -210,7 +181,7 @@
             <span id="primaryType2">-</span> is weak against:
             <b id="primaryWeakness">-</b>
           </p>
-          
+
         </td>
         <td width="50%" bgcolor="#8888cc">
           <h2>Secondary type (optional):</h2>
@@ -240,10 +211,10 @@
             <span id="secondaryType2">-</span> is weak against:
             <b id="secondaryWeakness">-</b>
           </p>
-          
+
         </td>
       </tr>
-      
+
       <tr>
         <td colspan="2" height="70" valign="top" bgcolor="#88cc88">
           Search string to fight <b id="primaryType">-</b> type:
@@ -267,11 +238,50 @@
       </tr>
     </table>
     <p>
-    <center>
-      <button type="button" onclick="reset()">Reset!</button>
-    </center>
+      <center>
+        <button type="button" onclick="reset()">Reset!</button>
+      </center>
     </p>
 
+    <hr/>
+
+
+    <p>
+      So... when playing Pokemon GO, there's this situation which
+      comes up every now and then - you're about to fight some
+      pokemon, and you see it's a WATER type. The app suggests a
+      team for you to enter the fray with, but often it's not a very
+      strong team because it doesn't take the defender's weaknesses
+      into consideration.
+    </p>
+    <p>
+      What I normally do then is to google the defender's type, get
+      to a web page with a zillion ads, scroll down lots and lots where I may or may not find a
+      table where I look up the type. If it was type WATER, I find
+      out that this pokemon is weak to Fire, Ground, and Rock
+      attacks.
+    </p>
+    <p>
+      Next, I re-open Pokemon GO, and search among my Pokemon for
+      any which has moves which belong to one of he three
+      attacks. PoGo has a weird search syntax, and I need to type
+      the following:
+    </p>
+    <p>
+      <code>  @1fire,@1ground,@1rock&@2fire,@2ground,@2rock</code>
+    </p>
+    <p>
+      This is, needless to say, a major PITA.
+    </p>
+    <p>
+      So I decided to write a little webpage which does the lookup for
+      me (If you didn't notice, this is that webpage.) Along the way I
+      even learned some (very basic) javascript.
+    </p>
+    <p>
+      Happy Pogo-ing!<br/>
+      fimblo
+    </p>
 
 
   </body>
