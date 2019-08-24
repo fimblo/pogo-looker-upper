@@ -58,7 +58,14 @@
        "dark"     : ["fighting","bug","fairy"],
 
      };
-
+     
+     /*
+        Helper function.
+        Capitalises the first letter of a string.
+      */
+     function _uc (string) {
+       return string.charAt(0).toUpperCase() + string.slice(1);
+     }
 
      /*
         Given two types, returns pokemon type which will give 4x fighting
@@ -90,7 +97,7 @@
        if (pokeArray.length === 0) {
          return "";
        }
-       
+
        for (var t in pokeArray) {
          arr.push("@" + 1 + pokeArray[t]);
        }
@@ -105,7 +112,7 @@
        return output;
      }
 
-     
+
      /*
         Updates HTML entities for secondary poketype with data
       */
@@ -113,8 +120,10 @@
        var prim = document.getElementById("primaryType").innerHTML;
        var seco = document.getElementById("secondaryType").innerHTML;
 
-       
-       
+       document.getElementById("primaryType2").innerHTML = _uc(prim);
+       document.getElementById("secondaryType2").innerHTML = _uc(seco);
+
+
        if ("-" !== prim) {
          document.getElementById("primaryWeakness").innerHTML = matrix[prim];
          document.getElementById("primarySearch").innerHTML = createSearchString(matrix[prim]);
@@ -154,12 +163,15 @@
        refresh();
      }
 
-     /* 
+     /*
         Resets everything to initial state
       */
      function reset () {
        document.getElementById("primaryType").innerHTML = "-";
        document.getElementById("secondaryType").innerHTML = "-";
+       document.getElementById("p_none").checked = true;
+       document.getElementById("s_none").checked = true;
+
        refresh();
      }
 
@@ -167,88 +179,100 @@
   </head>
   <body>
     <div id="foo"></div>
+
+    <table border="1" width="100%">
+      
+      <tr>
+        <td width="50%" bgcolor="#88cc88">
+          <h2>Primary type:</h2>
+          <input type="radio" name="f" id="p_none" onclick=updatePrimary("-") checked>Nothing selected</input><br/>
+
+          <input type="radio" name="f" onclick=updatePrimary("bug")      >Bug</input><br/>
+          <input type="radio" name="f" onclick=updatePrimary("dark")     >Dark</input><br/>
+          <input type="radio" name="f" onclick=updatePrimary("dragon")   >Dragon</input><br/>
+          <input type="radio" name="f" onclick=updatePrimary("electric") >Electric</input><br/>
+          <input type="radio" name="f" onclick=updatePrimary("fairy")    >Fairy</input><br/>
+          <input type="radio" name="f" onclick=updatePrimary("fighting") >Fighting</input><br/>
+          <input type="radio" name="f" onclick=updatePrimary("fire")     >Fire</input><br/>
+          <input type="radio" name="f" onclick=updatePrimary("flying")   >Flying</input><br/>
+          <input type="radio" name="f" onclick=updatePrimary("ghost")    >Ghost</input><br/>
+          <input type="radio" name="f" onclick=updatePrimary("grass")    >Grass</input><br/>
+          <input type="radio" name="f" onclick=updatePrimary("ground")   >Ground</input><br/>
+          <input type="radio" name="f" onclick=updatePrimary("ice")      >Ice</input><br/>
+          <input type="radio" name="f" onclick=updatePrimary("normal")   >Normal</input><br/>
+          <input type="radio" name="f" onclick=updatePrimary("poison")   >Poison</input><br/>
+          <input type="radio" name="f" onclick=updatePrimary("psychic")  >Psychic</input><br/>
+          <input type="radio" name="f" onclick=updatePrimary("rock")     >Rock</input><br/>
+          <input type="radio" name="f" onclick=updatePrimary("steel")    >Steel</input><br/>
+          <input type="radio" name="f" onclick=updatePrimary("water")    >Water</input><br/>
+
+          <p>
+            <span id="primaryType2">-</span> is weak against:
+            <b id="primaryWeakness">-</b>
+          </p>
+          
+        </td>
+        <td width="50%" bgcolor="#8888cc">
+          <h2>Secondary type (optional):</h2>
+          <input type="radio" name="g" id="s_none" onclick=updateSecondary("-") checked>Nothing selected</input><br/>
+
+          <input type="radio" name="g" onclick=updateSecondary("bug")      >Bug</input><br/>
+          <input type="radio" name="g" onclick=updateSecondary("dark")     >Dark</input><br/>
+          <input type="radio" name="g" onclick=updateSecondary("dragon")   >Dragon</input><br/>
+          <input type="radio" name="g" onclick=updateSecondary("electric") >Electric</input><br/>
+          <input type="radio" name="g" onclick=updateSecondary("fairy")    >Fairy</input><br/>
+          <input type="radio" name="g" onclick=updateSecondary("fighting") >Fighting</input><br/>
+          <input type="radio" name="g" onclick=updateSecondary("fire")     >Fire</input><br/>
+          <input type="radio" name="g" onclick=updateSecondary("flying")   >Flying</input><br/>
+          <input type="radio" name="g" onclick=updateSecondary("ghost")    >Ghost</input><br/>
+          <input type="radio" name="g" onclick=updateSecondary("grass")    >Grass</input><br/>
+          <input type="radio" name="g" onclick=updateSecondary("ground")   >Ground</input><br/>
+          <input type="radio" name="g" onclick=updateSecondary("ice")      >Ice</input><br/>
+          <input type="radio" name="g" onclick=updateSecondary("normal")   >Normal</input><br/>
+          <input type="radio" name="g" onclick=updateSecondary("poison")   >Poison</input><br/>
+          <input type="radio" name="g" onclick=updateSecondary("psychic")  >Psychic</input><br/>
+          <input type="radio" name="g" onclick=updateSecondary("rock")     >Rock</input><br/>
+          <input type="radio" name="g" onclick=updateSecondary("steel")    >Steel</input><br/>
+          <input type="radio" name="g" onclick=updateSecondary("water")    >Water</input><br/>
+
+
+          <p>
+            <span id="secondaryType2">-</span> is weak against:
+            <b id="secondaryWeakness">-</b>
+          </p>
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <td colspan="2" height="70" valign="top" bgcolor="#88cc88">
+          Search string to fight <b id="primaryType">-</b> type:
+          <p id="primarySearch">-</p>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" height="70" valign="top" bgcolor="#8888cc">
+          Search string to fight <b id="secondaryType">-</b> type:
+          <p id="secondarySearch">-</p>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2" height="70" valign="top" bgcolor="#cc8888">
+          The ultimate pokemon attack(s) against these two poketypes are: <b id="ultimateType">-</b>.<br/>
+
+          Your ultimate search string is:
+          <p id="ultimateSearch">-</p>
+        </td>
+      </tr>
+    </table>
     <p>
+    <center>
       <button type="button" onclick="reset()">Reset!</button>
+    </center>
     </p>
 
-    
-    Your opponent Pokemon is type: <b id="primaryType">-</b>.<br/>
-    It is weak against: <b id="primaryWeakness">-</b>.<br/>
 
-    <p>
-      Your search string is:
-      <div id="primarySearch"></div>
-    </p>
 
-    <p>
-      <button type="button" onclick=updatePrimary("bug")      >Bug</button>
-      <button type="button" onclick=updatePrimary("dark")     >Dark</button>
-      <button type="button" onclick=updatePrimary("dragon")   >Dragon</button>
-      <button type="button" onclick=updatePrimary("electric") >Electric</button>
-      <button type="button" onclick=updatePrimary("fairy")    >Fairy</button>
-      <button type="button" onclick=updatePrimary("fighting") >Fighting</button>
-    </p>
-    <p>
-      <button type="button" onclick=updatePrimary("fire")     >Fire</button>
-      <button type="button" onclick=updatePrimary("flying")   >Flying</button>
-      <button type="button" onclick=updatePrimary("ghost")    >Ghost</button>
-      <button type="button" onclick=updatePrimary("grass")    >Grass</button>
-      <button type="button" onclick=updatePrimary("ground")   >Ground</button>
-      <button type="button" onclick=updatePrimary("ice")      >Ice</button>
-    </p>
-    <p>
-      <button type="button" onclick=updatePrimary("normal")   >Normal</button>
-      <button type="button" onclick=updatePrimary("poison")   >Poison</button>
-      <button type="button" onclick=updatePrimary("psychic")  >Psychic</button>
-      <button type="button" onclick=updatePrimary("rock")     >Rock</button>
-      <button type="button" onclick=updatePrimary("steel")    >Steel</button>
-      <button type="button" onclick=updatePrimary("water")    >Water</button>
-    </p>
-
-    <hr/>
-    Does your opponent have a second type? Select secondary type here:<br/>
-
-    <p>
-      <button type="button" onclick=updateSecondary("bug")      >Bug</button>
-      <button type="button" onclick=updateSecondary("dark")     >Dark</button>
-      <button type="button" onclick=updateSecondary("dragon")   >Dragon</button>
-      <button type="button" onclick=updateSecondary("electric") >Electric</button>
-      <button type="button" onclick=updateSecondary("fairy")    >Fairy</button>
-      <button type="button" onclick=updateSecondary("fighting") >Fighting</button>
-    </p>
-    <p>
-      <button type="button" onclick=updateSecondary("fire")     >Fire</button>
-      <button type="button" onclick=updateSecondary("flying")   >Flying</button>
-      <button type="button" onclick=updateSecondary("ghost")    >Ghost</button>
-      <button type="button" onclick=updateSecondary("grass")    >Grass</button>
-      <button type="button" onclick=updateSecondary("ground")   >Ground</button>
-      <button type="button" onclick=updateSecondary("ice")      >Ice</button>
-    </p>
-    <p>
-      <button type="button" onclick=updateSecondary("normal")   >Normal</button>
-      <button type="button" onclick=updateSecondary("poison")   >Poison</button>
-      <button type="button" onclick=updateSecondary("psychic")  >Psychic</button>
-      <button type="button" onclick=updateSecondary("rock")     >Rock</button>
-      <button type="button" onclick=updateSecondary("steel")    >Steel</button>
-      <button type="button" onclick=updateSecondary("water")    >Water</button>
-</p>
-
-<p>
-  Selected secondary type: <b id='secondaryType'>-</b>.<br/>
-  It is weak against: <b id='secondaryWeakness'>-</b>.<br/>
-</p>
-
-<p>
-  Your new search string is:
-  <div id="secondarySearch"></div>
-</p>
-
-<hr/>
-The ultimate pokemon attack(s) against these two poketypes are: <span id="ultimateType">-</span>.<br/>
-<p>
-  Your ultimate search string is:
-  <div id="ultimateSearch"></div>
-</p>
-
-</body>
+  </body>
 </html>
