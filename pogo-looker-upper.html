@@ -199,29 +199,29 @@
       <tr>
         <td width="50%" bgcolor="#88cc88">
           <h2>Primary type:</h2>
-          <input type="radio" name="f" id="p_none" onclick=updatePrimary("-") checked>Nothing selected</input><br/>
+          <input id="p_none"     type="radio" name="p" onclick=updatePrimary("-") checked><label for="p_none">Nothing selected</label></input><br/>
 
-          <input type="radio" name="f" onclick=updatePrimary("bug")      >Bug</input><br/>
-          <input type="radio" name="f" onclick=updatePrimary("dark")     >Dark</input><br/>
-          <input type="radio" name="f" onclick=updatePrimary("dragon")   >Dragon</input><br/>
-          <input type="radio" name="f" onclick=updatePrimary("electric") >Electric</input><br/>
-          <input type="radio" name="f" onclick=updatePrimary("fairy")    >Fairy</input><br/>
-          <input type="radio" name="f" onclick=updatePrimary("fighting") >Fighting</input><br/>
-          <input type="radio" name="f" onclick=updatePrimary("fire")     >Fire</input><br/>
-          <input type="radio" name="f" onclick=updatePrimary("flying")   >Flying</input><br/>
-          <input type="radio" name="f" onclick=updatePrimary("ghost")    >Ghost</input><br/>
-          <input type="radio" name="f" onclick=updatePrimary("grass")    >Grass</input><br/>
-          <input type="radio" name="f" onclick=updatePrimary("ground")   >Ground</input><br/>
-          <input type="radio" name="f" onclick=updatePrimary("ice")      >Ice</input><br/>
-          <input type="radio" name="f" onclick=updatePrimary("normal")   >Normal</input><br/>
-          <input type="radio" name="f" onclick=updatePrimary("poison")   >Poison</input><br/>
-          <input type="radio" name="f" onclick=updatePrimary("psychic")  >Psychic</input><br/>
-          <input type="radio" name="f" onclick=updatePrimary("rock")     >Rock</input><br/>
-          <input type="radio" name="f" onclick=updatePrimary("steel")    >Steel</input><br/>
-          <input type="radio" name="f" onclick=updatePrimary("water")    >Water</input><br/>
+          <input id="p_bug"      type="radio" name="p" onclick=updatePrimary("bug")      ><label for="p_bug">Bug</label></input><br/>
+          <input id="p_dark"     type="radio" name="p" onclick=updatePrimary("dark")     ><label for="p_dark">Dark</label></input><br/>
+          <input id="p_dragon"   type="radio" name="p" onclick=updatePrimary("dragon")   ><label for="p_dragon">Dragon</label></input><br/>
+          <input id="p_electric" type="radio" name="p" onclick=updatePrimary("electric") ><label for="p_electric">Electric</label></input><br/>
+          <input id="p_fairy"    type="radio" name="p" onclick=updatePrimary("fairy")    ><label for="p_fairy">Fairy</label></input><br/>
+          <input id="p_fighting" type="radio" name="p" onclick=updatePrimary("fighting") ><label for="p_fighting">Fighting</label></input><br/>
+          <input id="p_fire"     type="radio" name="p" onclick=updatePrimary("fire")     ><label for="p_fire">Fire</label></input><br/>
+          <input id="p_flying"   type="radio" name="p" onclick=updatePrimary("flying")   ><label for="p_flying">Flying</label></input><br/>
+          <input id="p_ghost"    type="radio" name="p" onclick=updatePrimary("ghost")    ><label for="p_ghost">Ghost</label></input><br/>
+          <input id="p_grass"    type="radio" name="p" onclick=updatePrimary("grass")    ><label for="p_grass">Grass</label></input><br/>
+          <input id="p_ground"   type="radio" name="p" onclick=updatePrimary("ground")   ><label for="p_ground">Ground</label></input><br/>
+          <input id="p_ice"      type="radio" name="p" onclick=updatePrimary("ice")      ><label for="p_ice">Ice</label></input><br/>
+          <input id="p_normal"   type="radio" name="p" onclick=updatePrimary("normal")   ><label for="p_normal">Normal</label></input><br/>
+          <input id="p_poison"   type="radio" name="p" onclick=updatePrimary("poison")   ><label for="p_poison">Poison</label></input><br/>
+          <input id="p_psychic"  type="radio" name="p" onclick=updatePrimary("psychic")  ><label for="p_psychic">Psychic</label></input><br/>
+          <input id="p_rock"     type="radio" name="p" onclick=updatePrimary("rock")     ><label for="p_rock">Rock</label></input><br/>
+          <input id="p_steel"    type="radio" name="p" onclick=updatePrimary("steel")    ><label for="p_steel">Steel</label></input><br/>
+          <input id="p_water"    type="radio" name="p" onclick=updatePrimary("water")    ><label for="p_water">Water</input><br/>
 
           <p>
-            <span id="primaryType2">-</span> is weak against:
+            <span id="primaryType2">-</span> is weak against:<br>
             <b id="primaryWeakness">-</b>
           </p>
           Search string to fight <b id="primaryType">-</b> type:
@@ -231,30 +231,30 @@
         </td>
         <td width="50%" bgcolor="#8888cc">
           <h2>Secondary type (optional):</h2>
-          <input type="radio" name="g" id="s_none" onclick=updateSecondary("-") checked>Nothing selected</input><br/>
+          <input id="s_none"     type="radio" name="s" onclick=updateSecondary("-") checked><label for="s_none">Nothing selected</label></input><br/>
 
-          <input type="radio" name="g" onclick=updateSecondary("bug")      >Bug</input><br/>
-          <input type="radio" name="g" onclick=updateSecondary("dark")     >Dark</input><br/>
-          <input type="radio" name="g" onclick=updateSecondary("dragon")   >Dragon</input><br/>
-          <input type="radio" name="g" onclick=updateSecondary("electric") >Electric</input><br/>
-          <input type="radio" name="g" onclick=updateSecondary("fairy")    >Fairy</input><br/>
-          <input type="radio" name="g" onclick=updateSecondary("fighting") >Fighting</input><br/>
-          <input type="radio" name="g" onclick=updateSecondary("fire")     >Fire</input><br/>
-          <input type="radio" name="g" onclick=updateSecondary("flying")   >Flying</input><br/>
-          <input type="radio" name="g" onclick=updateSecondary("ghost")    >Ghost</input><br/>
-          <input type="radio" name="g" onclick=updateSecondary("grass")    >Grass</input><br/>
-          <input type="radio" name="g" onclick=updateSecondary("ground")   >Ground</input><br/>
-          <input type="radio" name="g" onclick=updateSecondary("ice")      >Ice</input><br/>
-          <input type="radio" name="g" onclick=updateSecondary("normal")   >Normal</input><br/>
-          <input type="radio" name="g" onclick=updateSecondary("poison")   >Poison</input><br/>
-          <input type="radio" name="g" onclick=updateSecondary("psychic")  >Psychic</input><br/>
-          <input type="radio" name="g" onclick=updateSecondary("rock")     >Rock</input><br/>
-          <input type="radio" name="g" onclick=updateSecondary("steel")    >Steel</input><br/>
-          <input type="radio" name="g" onclick=updateSecondary("water")    >Water</input><br/>
+          <input id="s_bug"      type="radio" name="s" onclick=updateSecondary("bug")      ><label for="s_bug">Bug</label></input><br/>
+          <input id="s_dark"     type="radio" name="s" onclick=updateSecondary("dark")     ><label for="s_dark">Dark</label></input><br/>
+          <input id="s_dragon"   type="radio" name="s" onclick=updateSecondary("dragon")   ><label for="s_dragon">Dragon</label></input><br/>
+          <input id="s_electric" type="radio" name="s" onclick=updateSecondary("electric") ><label for="s_electric">Electric</label></input><br/>
+          <input id="s_fairy"    type="radio" name="s" onclick=updateSecondary("fairy")    ><label for="s_fairy">Fairy</label></input><br/>
+          <input id="s_fighting" type="radio" name="s" onclick=updateSecondary("fighting") ><label for="s_fighting">Fighting</label></input><br/>
+          <input id="s_fire"     type="radio" name="s" onclick=updateSecondary("fire")     ><label for="s_fire">Fire</label></input><br/>
+          <input id="s_flying"   type="radio" name="s" onclick=updateSecondary("flying")   ><label for="s_flying">Flying</label></input><br/>
+          <input id="s_ghost"    type="radio" name="s" onclick=updateSecondary("ghost")    ><label for="s_ghost">Ghost</label></input><br/>
+          <input id="s_grass"    type="radio" name="s" onclick=updateSecondary("grass")    ><label for="s_grass">Grass</label></input><br/>
+          <input id="s_ground"   type="radio" name="s" onclick=updateSecondary("ground")   ><label for="s_ground">Ground</label></input><br/>
+          <input id="s_ice"      type="radio" name="s" onclick=updateSecondary("ice")      ><label for="s_ice">Ice</label></input><br/>
+          <input id="s_normal"   type="radio" name="s" onclick=updateSecondary("normal")   ><label for="s_normal">Normal</label></input><br/>
+          <input id="s_poison"   type="radio" name="s" onclick=updateSecondary("poison")   ><label for="s_poison">Poison</label></input><br/>
+          <input id="s_psychic"  type="radio" name="s" onclick=updateSecondary("psychic")  ><label for="s_psychic">Psychic</label></input><br/>
+          <input id="s_rock"     type="radio" name="s" onclick=updateSecondary("rock")     ><label for="s_rock">Rock</label></input><br/>
+          <input id="s_steel"    type="radio" name="s" onclick=updateSecondary("steel")    ><label for="s_steel">Steel</label></input><br/>
+          <input id="s_water"    type="radio" name="s" onclick=updateSecondary("water")    ><label for="s_water">Water</input><br/>
 
 
           <p>
-            <span id="secondaryType2">-</span> is weak against:
+            <span id="secondaryType2">-</span> is weak against:<br>
             <b id="secondaryWeakness">-</b>
           </p>
           Search string to fight <b id="secondaryType">-</b> type:
