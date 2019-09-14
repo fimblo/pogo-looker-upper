@@ -3,6 +3,27 @@
   <head>
     <title>Pokemon GO: Strength looker-upper</title>
 
+    <style>
+     .overflowed {
+	   width: 20em;
+	   height: 2em;
+	   white-space: nowrap; 
+	   overflow: hidden;
+
+     }
+
+     .overflowed-clip {
+	   text-overflow: clip;
+     }
+
+     .overflowed-ellipsis {
+	   text-overflow: ellipsis;
+     }
+
+     .overflowed-ellipsis-word  {
+	   text-overflow: ellipsis-word;
+     }
+    </style>
     <script>
      /*
         The pokemon types and their weaknesses
@@ -96,25 +117,25 @@
 
        if ("-" !== prim) {
          document.getElementById("primaryWeakness").innerHTML = matrix[prim];
-         document.getElementById("primarySearch").innerHTML = createSearchString(matrix[prim]);
+         document.getElementById("primarySearch").value = createSearchString(matrix[prim]);
        } else {
          document.getElementById("primaryWeakness").innerHTML = "-";
-         document.getElementById("primarySearch").innerHTML = "-";
+         document.getElementById("primarySearch").value = "-";
        }
        if ("-" !== seco) {
          document.getElementById("secondaryWeakness").innerHTML = matrix[seco];
-         document.getElementById("secondarySearch").innerHTML = createSearchString(matrix[seco]);
+         document.getElementById("secondarySearch").value = createSearchString(matrix[seco]);
        } else {
          document.getElementById("secondaryWeakness").innerHTML = "-";
-         document.getElementById("secondarySearch").innerHTML = "-";
+         document.getElementById("secondarySearch").value = "-";
        }
        if ("-" !== prim && "-" !== seco) {
          var types = getUltimateType(prim, seco);
          document.getElementById("ultimateType").innerHTML = types;
-         document.getElementById("ultimateSearch").innerHTML = createSearchString(types);
+         document.getElementById("ultimateSearch").value = createSearchString(types);
        } else {
          document.getElementById("ultimateType").innerHTML = "-";
-         document.getElementById("ultimateSearch").innerHTML = "-";
+         document.getElementById("ultimateSearch").value = "-";
        }
      }
 
@@ -143,6 +164,28 @@
        document.getElementById("s_none").checked = true;
 
        refresh();
+     }
+
+     function copyPrim() {
+       var copyText = document.getElementById("primarySearch");
+       copyText.select();
+       copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+       document.execCommand("copy");
+       //       alert("Copied the text: " + copyText.value);
+     }
+     function copySeco() {
+       var copyText = document.getElementById("secondarySearch");
+       copyText.select();
+       copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+       document.execCommand("copy");
+       //       alert("Copied the text: " + copyText.value);
+     }
+     function copyUlti() {
+       var copyText = document.getElementById("ultimateSearch");
+       copyText.select();
+       copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+       document.execCommand("copy");
+       //       alert("Copied the text: " + copyText.value);
      }
 
     </script>
@@ -181,6 +224,9 @@
             <span id="primaryType2">-</span> is weak against:
             <b id="primaryWeakness">-</b>
           </p>
+          Search string to fight <b id="primaryType">-</b> type:
+          <input type="text" class="overflowed overflowed-ellipsis" id="primarySearch" value="-"></div>
+          <button onclick=copyPrim()>Copy</button>
 
         </td>
         <td width="50%" bgcolor="#8888cc">
@@ -211,20 +257,9 @@
             <span id="secondaryType2">-</span> is weak against:
             <b id="secondaryWeakness">-</b>
           </p>
-
-        </td>
-      </tr>
-
-      <tr>
-        <td colspan="2" height="70" valign="top" bgcolor="#88cc88">
-          Search string to fight <b id="primaryType">-</b> type:
-          <p id="primarySearch">-</p>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" height="70" valign="top" bgcolor="#8888cc">
           Search string to fight <b id="secondaryType">-</b> type:
-          <p id="secondarySearch">-</p>
+          <input type="text" class="overflowed overflowed-ellipsis" id="secondarySearch" value="-"></input>
+          <button onclick=copySeco()>Copy</button>
         </td>
       </tr>
 
@@ -233,7 +268,8 @@
           The ultimate pokemon attack(s) against these two poketypes are: <b id="ultimateType">-</b>.<br/>
 
           Your ultimate search string is:
-          <p id="ultimateSearch">-</p>
+          <input type="text" class="overflowed overflowed-ellipsis" id="ultimateSearch" value="-"></input>
+          <button onclick=copyUlti()>Copy</button>
         </td>
       </tr>
     </table>
