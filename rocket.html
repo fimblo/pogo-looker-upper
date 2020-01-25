@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Pokemon GO: Strength looker-upper</title>
+
+    <style>
+     .overflowed {
+	   width: 20em;
+	   height: 2em;
+	   white-space: nowrap; 
+	   overflow: hidden;
+
+     }
+
+     .overflowed-clip {
+	   text-overflow: clip;
+     }
+
+     .overflowed-ellipsis {
+	   text-overflow: ellipsis;
+     }
+
+     .overflowed-ellipsis-word  {
+	   text-overflow: ellipsis-word;
+     }
+    </style>
+    <script>
+     /*
+        The pokemon types and their weaknesses
+      */
+     const matrix  = {
+       "normal"   : ["fighting"],
+       "fighting" : ["flying","psychic","fairy"],
+       "flying"   : ["rock","electric","ice"],
+       "poison"   : ["ground","psychic"],
+       "ground"   : ["water","grass","ice"],
+       "rock"     : ["fighting","ground","steel","water","grass"],
+       "bug"      : ["flying","rock","fire"],
+       "ghost"    : ["ghost","dark"],
+       "steel"    : ["fighting","ground","fire"],
+       "fire"     : ["ground","rock","water"],
+       "water"    : ["grass","electric"],
+       "grass"    : ["flying","poison","bug","fire","ice"],
+       "electric" : ["ground"],
+       "psychic"  : ["bug","ghost","dark"],
+       "ice"      : ["fighting","rock","steel","fire"],
+       "dragon"   : ["ice","dragon","fairy"],
+       "fairy"    : ["poison","steel"],
+       "dark"     : ["fighting","bug","fairy"],
+
+     };
+
+     /*
+        Helper function.
+        Capitalises the first letter of a string.
+      */
+     function _uc (string) {
+       return string.charAt(0).toUpperCase() + string.slice(1);
+     }
+
+     /*
+        Given an array of poketypes, returns a string you
+        can paste into Pokemon GO's Pokemon search field.
+      */
+     function createSearchString (pokeArray) {
+       var output = "";
+       var arr = [];
+
+       if (pokeArray.length === 0) {
+         return "";
+       }
+
+       for (var t in pokeArray) {
+         arr.push("@" + 1 + pokeArray[t]);
+       }
+       output = arr.join(',');
+
+       arr = [];
+       for (var t in pokeArray) {
+         arr.push("@" + 2 + pokeArray[t]);
+       }
+       output += "&" + arr.join(',');
+
+       return output;
+     }
+
+
+     /*
+        Updates HTML entities for secondary poketype with data
+      */
+     function refresh () {
+       var prim = document.getElementById("primaryType").innerHTML;
+
+       document.getElementById("primaryType2").innerHTML = _uc(prim);
+
+
+       if ("-" !== prim) {
+         document.getElementById("primaryWeakness").innerHTML = matrix[prim];
+         document.getElementById("primarySearch").value = createSearchString(matrix[prim]);
+       } else {
+         document.getElementById("primaryWeakness").innerHTML = "-";
+         document.getElementById("primarySearch").value = "-";
+       }
+     }
+
+     /*
+        Save primary type
+      */
+     function updatePrimary (poketype) {
+       document.getElementById("primaryType").innerHTML = poketype;
+       refresh();
+     }
+
+     /*
+        Resets everything to initial state
+      */
+     function reset () {
+       document.getElementById("primaryType").innerHTML = "-";
+       document.getElementById("p_none").checked = true;
+
+       refresh();
+     }
+
+     function copyPrim() {
+       var copyText = document.getElementById("primarySearch");
+       copyText.select();
+       copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+       document.execCommand("copy");
+       //       alert("Copied the text: " + copyText.value);
+     }
+
+    </script>
+  </head>
+  <body>
+    <center><h1>Pokemon GO:<br/>Looker upper</h1></center>
+    <div id="foo"></div>
+
+
+    <table border="1" width="100%">
+      <tr><td><a href="index.html">Simple Looker-upper</a></td><td>Team Rocket looker-upper</td></tr>
+
+      <tr>
+        <td colspan="2" bgcolor="#88cc88">
+          <h2>Team Rocket dialogue:</h2>
+          <input id="p_none"     type="radio" name="p" onclick=updatePrimary("-") checked><label for="p_none">Nothing selected</label></input><br/>
+
+          <input id="p_bug"      type="radio" name="p" onclick=updatePrimary("bug")      ><label for="p_bug"     >"Go, my super bug Pokemon"                          (Bug)</label></input><br/>
+          <input id="p_dark"     type="radio" name="p" onclick=updatePrimary("dark")     ><label for="p_dark"    >"Wherever is a light, there is also shadow..."      (Dark)</label></input><br/>
+          <input id="p_dragon"   type="radio" name="p" onclick=updatePrimary("dragon")   ><label for="p_dragon"  >"ROAR... How'd that sound?"                           (Dragon)</label></input><br/>
+          <input id="p_electric" type="radio" name="p" onclick=updatePrimary("electric") ><label for="p_electric">"Get ready to be shocked"                           (Electric)</label></input><br/>
+          <input id="p_fairy"    type="radio" name="p" onclick=updatePrimary("fairy")    ><label for="p_fairy"   >"Check out my cute Pokemon!"                        (Fairy)</label></input><br/>
+          <input id="p_fighting" type="radio" name="p" onclick=updatePrimary("fighting") ><label for="p_fighting">"This buff physique isn't just for show!"           (Fighting)</label></input><br/>
+          <input id="p_fire"     type="radio" name="p" onclick=updatePrimary("fire")     ><label for="p_fire"    >"Do you know how hot Pokemon fire breath can get?"  (Fire)</label></input><br/>
+          <input id="p_flying1"  type="radio" name="p" onclick=updatePrimary("flying")   ><label for="p_flying1" >"Battle against my flying-type Pokemon"             (Flying)</label></input><br/>
+          <input id="p_flying2"  type="radio" name="p" onclick=updatePrimary("flying")   ><label for="p_flying2" >"My bird Pokemon wants to battle with you!"         (Flying)</label></input><br/>
+          <input id="p_ghost"    type="radio" name="p" onclick=updatePrimary("ghost")    ><label for="p_ghost"   >"Ke...ke...ke...ke...ke..."                                   (Ghost)</label></input><br/>
+          <input id="p_grass"    type="radio" name="p" onclick=updatePrimary("grass")    ><label for="p_grass"   >"Don't tangle with us"                              (Grass)</label></input><br/>
+          <input id="p_ground"   type="radio" name="p" onclick=updatePrimary("ground")   ><label for="p_ground"  >"You'll be defeated into the ground"                (Ground)</label></input><br/>
+          <input id="p_ice"      type="radio" name="p" onclick=updatePrimary("ice")      ><label for="p_ice"     >"You're gonna be frozen in your tracks."            (Ice)</label></input><br/>
+          <input id="p_normal"   type="radio" name="p" onclick=updatePrimary("normal")   ><label for="p_normal"  >"Normal does not mean weak"                         (Normal)</label></input><br/>
+          <input id="p_poison"   type="radio" name="p" onclick=updatePrimary("poison")   ><label for="p_poison"  >"Coiled and ready to strike"                        (Poison)</label></input><br/>
+          <input id="p_psychic"  type="radio" name="p" onclick=updatePrimary("psychic")  ><label for="p_psychic" >"Are you scared of psychics that use unseen power?" (Psychic)</label></input><br/>
+          <input id="p_rock"     type="radio" name="p" onclick=updatePrimary("rock")     ><label for="p_rock"    >"Let's rock and roll"                               (Rock)</label></input><br/>
+          <input id="p_steel"    type="radio" name="p" onclick=updatePrimary("steel")    ><label for="p_steel"   >"You're no match for my iron will!"                 (Steel)</label></input><br/>
+          <input id="p_water"    type="radio" name="p" onclick=updatePrimary("water")    ><label for="p_water"   >"These waters are treacherous"                      (Water)</label></input><br/>
+
+          <p>
+            <span id="primaryType2">-</span> is weak against:<br>
+            <b id="primaryWeakness">-</b>
+          </p>
+          Search string to fight <b id="primaryType">-</b> type:<br/>
+          <input type="text" class="overflowed overflowed-ellipsis" id="primarySearch" value="-"></div>
+          <button onclick=copyPrim()>Copy</button>
+        </td>
+      </tr>
+    </table>
+    <p>
+      <center>
+        <button type="button" onclick="reset()">Reset!</button>
+      </center>
+    </p>
+  </body>
+</html>
